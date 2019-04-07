@@ -4,6 +4,48 @@
   The Log analysis project by  Udacity
 
 ## Reproduce
+```
+requirements
+
+Ubuntu/debian OS
+
+
+ckage          Version 
+---------------- --------
+certifi          2019.3.9
+chardet          3.0.4   
+Click            7.0     
+docopt           0.6.2   
+Flask            1.0.2   
+grip             4.5.2   
+idna             2.8     
+itsdangerous     1.1.0   
+Jinja2           2.10.1  
+Markdown         3.1     
+MarkupSafe       1.1.1   
+path-and-address 2.0.1   
+pip              19.0.3  
+psycopg2         2.7.7   
+psycopg2-binary  2.8     
+Pygments         2.3.1   
+requests         2.21.0  
+setuptools       40.8.0  
+urllib3          1.24.1  
+Werkzeug         0.15.2  
+wheel            0.33.1  
+
+
+
+Python 3.7.3 (default, Mar 27 2019, 22:11:17) 
+[GCC 7.3.0] :: Anaconda, Inc. on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> record = "This is a record"
+>>> print(f"you are connected to - {record}")
+you are connected to - This is a record
+
+
+
+```
 
 ### Changes made 
 + I am running this project on a linux machine which has Postgres and python installed, I do not need to install VirtualBox or Vagrant for that matter, which makes it simpler 
