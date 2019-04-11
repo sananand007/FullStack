@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.6
 """Log Analysis project"""
 
 import psycopg2
@@ -11,22 +11,37 @@ try:
     cursor.execute("SELECT version();")
     record = cursor.fetchone()
     print(f"you are connected to - {record}")
-
-    select_q1 = """ SELECT count(path), path from log GROUP BY
-                path ORDER BY count(path) DESC LIMIT 50 """
+    select_q1 = """ SELECT title, count (*) AS views
+                    FROM articles
+                    INNER JOIN log
+                    ON log.path = '/article/' || articles.slug
+                    GROUP BY title
+                    ORDER BY views DESC
+                    LIMIT 3 """
     cursor.execute(select_q1)
     records_toview = cursor.fetchall()
-    slugs, views = [], []
-    for i, record in enumerate(records_toview[1:4]):
-        views.append(record[0])
-        slugs.append(record[1].split('/')[-1].strip())
-        print(f"\"{slugs[i]}\" -- {views[i]} views")
-    for i, slug in enumerate(slugs):
-        select_q2 = """ SELECT authors.name FROM authors INNER JOIN articles
-        ON authors.id=articles.author WHERE articles.slug = (%s) """
-        cursor.execute(select_q2, (slug, ))
-        print(f'{cursor.fetchone()[0]} -- {views[i]} views')
-
+    for title, views in records_toview:
+        print(f"\"{title}\" -- {views} views")
+    select_q2 = """ SELECT authors.name, views
+                    FROM authors
+                    JOIN (
+                    SELECT sub.author, views
+                    FROM
+                    (
+                        SELECT author, count(*) AS views
+                        FROM articles
+                        INNER JOIN log
+                        ON log.path = '/article/' || articles.slug
+                        GROUP BY author
+                        ORDER BY views DESC
+                        LIMIT 3
+                    ) sub
+                    ) sub2
+                    ON sub2.author=authors.id;
+            """
+    cursor.execute(select_q2)
+    for author, views in cursor.fetchall():
+        print(f"{author} -- {views} views")
     # Just test database log
     select_q3 = """ SELECT  count(status) from log ; """
     cursor.execute(select_q3)
