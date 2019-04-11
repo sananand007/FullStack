@@ -57,16 +57,16 @@ deploy@hopperTestRemote:~/logsAnalysis/newsdata$ python logAnalysis.py
   ```
   
   + Who are the most popular article authors of all time ?
-  ```
   --------------------------------------------------------
+  ```
   Ursula La Multa -- 507594 views
   Rudolf von Treppenwitz -- 423457 views
   Anonymous Contributor -- 170098 views
   ```
   
   + On which days did more than 1% of requests lead to errors ?
-  ```
   --------------------------------------------------------
+  ```
   Jul 17, 2016 --  2.3% errors
   ```
 
